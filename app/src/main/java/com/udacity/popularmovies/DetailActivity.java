@@ -1,4 +1,4 @@
-package com.udacity.popularmovies.utils;
+package com.udacity.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,13 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.udacity.popularmovies.R;
+import com.squareup.picasso.Picasso;
+import com.udacity.popularmovies.model.Movie;
+import com.udacity.popularmovies.utils.NetworkUtils;
 
 public class DetailActivity extends AppCompatActivity {
+
+    public static final String PARCELABLE_MOVIE = "parcelable_movie";
 
     private TextView mOriginalTitle;
     private ImageView mMoviePosterThumbnail;
@@ -28,11 +32,18 @@ public class DetailActivity extends AppCompatActivity {
         mReleaseData = findViewById(R.id.tv_releaseData);
         mOverview = findViewById(R.id.tv_overview);
 
-        Intent intentThatStartedThisActivity = getIntent();
+        Intent intent = getIntent();
 
-        if (intentThatStartedThisActivity != null) {
-            if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
-                mOriginalTitle.setText(intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT));
+        if (intent != null) {
+            if (intent.hasExtra(PARCELABLE_MOVIE)) {
+                Movie movie = intent.getParcelableExtra(PARCELABLE_MOVIE);
+                mOriginalTitle.setText(movie.getOriginalTitle());
+                Picasso.with(this)
+                        .load(NetworkUtils.buildPosterUri(movie.getPoster()))
+                        .into(mMoviePosterThumbnail);
+                mRating.setText(movie.getRating());
+                mReleaseData.setText(movie.getReleaseData());
+                mOverview.setText(movie.getOverview());
             }
         }
     }

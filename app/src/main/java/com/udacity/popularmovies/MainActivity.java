@@ -1,6 +1,5 @@
 package com.udacity.popularmovies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.udacity.popularmovies.model.Movie;
-import com.udacity.popularmovies.utils.DetailActivity;
 import com.udacity.popularmovies.utils.JsonUtils;
 import com.udacity.popularmovies.utils.NetworkUtils;
 
@@ -64,12 +62,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     @Override
     public void onClick(Movie movie) {
-        Context context = this;
-//        Toast.makeText(context, movie.getOriginalTitle(), Toast.LENGTH_SHORT)
-//                .show();
-        Intent intentToStartDetailActivity = new Intent(context, DetailActivity.class);
-        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, movie.getOriginalTitle());
-        startActivity(intentToStartDetailActivity);
+        startActivity(new Intent(this, DetailActivity.class)
+                .putExtra(DetailActivity.PARCELABLE_MOVIE, movie));
     }
 
     private void showMovieView() {

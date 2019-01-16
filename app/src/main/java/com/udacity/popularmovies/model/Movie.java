@@ -1,6 +1,9 @@
 package com.udacity.popularmovies.model;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
 
     private String originalTitle;
     private String poster;
@@ -19,6 +22,26 @@ public class Movie {
         this.releaseData = releaseData;
     }
 
+    protected Movie(Parcel in) {
+        originalTitle = in.readString();
+        poster = in.readString();
+        overview = in.readString();
+        rating = in.readString();
+        releaseData = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
     public String getOriginalTitle() { return originalTitle;}
     public void setOriginalTitle(String originalTitle) {this.originalTitle = originalTitle;}
 
@@ -34,4 +57,17 @@ public class Movie {
     public String getReleaseData() { return releaseData;}
     public void setReleaseData(String releaseData) {this.releaseData = releaseData;}
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originalTitle);
+        dest.writeString(poster);
+        dest.writeString(overview);
+        dest.writeString(rating);
+        dest.writeString(releaseData);
+    }
 }
