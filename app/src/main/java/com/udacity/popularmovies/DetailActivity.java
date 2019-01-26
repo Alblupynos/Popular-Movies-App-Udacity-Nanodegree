@@ -15,7 +15,6 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String PARCELABLE_MOVIE = "parcelable_movie";
 
-    private TextView mOriginalTitle;
     private ImageView mMoviePosterThumbnail;
     private TextView mRating;
     private TextView mReleaseData;
@@ -26,7 +25,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        mOriginalTitle = findViewById(R.id.tv_original_title);
         mMoviePosterThumbnail = findViewById(R.id.iv_movie_poster_thumbnail);
         mRating = findViewById(R.id.tv_rating);
         mReleaseData = findViewById(R.id.tv_releaseData);
@@ -37,11 +35,11 @@ public class DetailActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.hasExtra(PARCELABLE_MOVIE)) {
                 Movie movie = intent.getParcelableExtra(PARCELABLE_MOVIE);
-                mOriginalTitle.setText(movie.getOriginalTitle());
+                setTitle(movie.getOriginalTitle());
                 Picasso.with(this)
                         .load(NetworkUtils.buildPosterUri(movie.getPoster()))
                         .into(mMoviePosterThumbnail);
-                mRating.setText(movie.getRating());
+                mRating.setText(movie.getRating() + "/10");
                 mReleaseData.setText(movie.getReleaseData());
                 mOverview.setText(movie.getOverview());
             }
