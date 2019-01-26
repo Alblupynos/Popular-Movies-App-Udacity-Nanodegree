@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
                 Picasso.with(this)
                         .load(NetworkUtils.buildPosterUri(movie.getPoster()))
                         .into(mMoviePosterThumbnail);
-                mRating.setText(movie.getRating() + "/10");
+                mRating.setText(String.format(getString(R.string.rating_format), movie.getRating()));
                 mReleaseData.setText(movie.getReleaseData());
                 mOverview.setText(movie.getOverview());
             }
