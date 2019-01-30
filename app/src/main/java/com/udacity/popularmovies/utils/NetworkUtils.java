@@ -16,7 +16,7 @@ public final class NetworkUtils {
 
     private static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
     private static final String MOVIE_POSTER_URL = "https://image.tmdb.org/t/p/w500";
-    private static final String KEY = "0429a75653e2ef24efedef935a8945e5";
+    private static final String KEY = "";
     public static final String SORT_POPULAR = "popularity.desc";
     public static final String SORT_TOP_RATED = "vote_average.desc";
 
